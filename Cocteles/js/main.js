@@ -1,69 +1,145 @@
-class CoctelAPI {
-  constructor() {
-    this.apiUrl = 'https://www.thecocktaildb.com/api/json/v1/1';
-  }
+const URL = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=";
 
-  async fetchCoctels() {
-    try {
-      const response = await fetch(`${this.apiUrl}/search.php?f=a`);
-      const data = await response.json();
-      return data.drinks;
-    } catch (error) {
-      console.error('Error fetching coctels:', error);
-      return [];
-    }
+function mostrarCocktails() {
+  const cocktailContainer = document.getElementById("cocktailContainer");
+  cocktailContainer.innerHTML = "";
+
+  fetch(URL)
+    .then(response => response.json())
+    .then(data => {
+      const cocktails = data.drinks;
+      cocktails.forEach(cocktail => {
+        const name = cocktail.strDrink;
+        const image = cocktail.strDrinkThumb;
+
+        const cocktailElement = document.createElement("div");
+        cocktailElement.className = "cocktail";
+
+        const imgElement = document.createElement("img");
+        imgElement.className = "cocktail-img";
+        imgElement.src = image;
+        imgElement.alt = name;
+
+        const buttonElement = document.createElement("button");
+        buttonElement.className = "ver-mas-btn";
+        buttonElement.textContent = "Ver más";
+        buttonElement.addEventListener("click", () => {
+          mostrarInformacion(cocktailElement, cocktail, imgElement); // Llamada a la función para mostrar la información del cocktail
+        });
+
+        cocktailElement.appendChild(imgElement);
+        cocktailElement.appendChild(buttonElement);
+
+        cocktailContainer.appendChild(cocktailElement);
+      });
+    })
+    .catch(error => console.log(error));
+}
+
+function mostrarInformacion(cocktailElement, cocktail) {
+  const infoElement = document.createElement("div");
+  infoElement.className = "cocktail-info";
+
+  const nameElement = document.createElement("h2");
+  nameElement.className = "cocktail-name";
+  nameElement.textContent = cocktail.strDrink;
+
+  const categoryElement = document.createElement("p");
+  categoryElement.className = "cocktail-category";
+  categoryElement.textContent = "Categoría: " + cocktail.strCategory;
+
+  const instructionsElement = document.createElement("p");
+  instructionsElement.className = "cocktail-instructions";
+  instructionsElement.textContent = "Instrucciones: " + cocktail.strInstructions;
+
+  const ingredientsElement = document.createElement("p");
+  ingredientsElement.className = "cocktail-ingredients";
+  ingredientsElement.textContent = "Ingredientes: " + getIngredients(cocktail);
+
+  infoElement.appendChild(nameElement);
+  infoElement.appendChild(categoryElement);
+  infoElement.appendChild(instructionsElement);
+  infoElement.appendChild(ingredientsElement);
+
+  // Verificar si el infoElement ya está presente antes de agregarlo
+  const existingInfoElement = cocktailElement.nextElementSibling;
+  if (existingInfoElement && existingInfoElement.className === "cocktail-info") {
+    // Si el infoElement ya existe, simplemente reemplazamos su contenido
+    existingInfoElement.innerHTML = infoElement.innerHTML;
+  } else {
+    // Si no existe, agregamos el infoElement como un hermano después del cocktailElement
+    cocktailElement.parentNode.insertBefore(infoElement, cocktailElement.nextSibling);
   }
 }
 
-class CoctelCard {
-  constructor(coctel) {
-    this.coctel = coctel;
-  }
-
-  render() {
-    const card = document.createElement('div');
-    card.classList.add('coctel-card');
-
-    const image = document.createElement('img');
-    image.src = this.coctel.strDrinkThumb;
-    image.alt = this.coctel.strDrink;
-    card.appendChild(image);
-
-    const title = document.createElement('h2');
-    title.textContent = this.coctel.strDrink;
-    card.appendChild(title);
-
-    const category = document.createElement('p');
-    category.textContent = `Category: ${this.coctel.strCategory}`;
-    card.appendChild(category);
-
-    const glass = document.createElement('p');
-    glass.textContent = `Glass: ${this.coctel.strGlass}`;
-    card.appendChild(glass);
-
-    const instructions = document.createElement('p');
-    instructions.textContent = this.coctel.strInstructions;
-    card.appendChild(instructions);
-
-    const button = document.createElement('button');
-    button.textContent = 'Ver más';
-    button.addEventListener('click', () => {
-      // Implementar lógica para ver más detalles del coctel
-      console.log(this.coctel);
-    });
-    card.appendChild(button);
-
-    return card;
+function ocultarInformacion(cocktailElement) {
+  // Verificar si existe un infoElement
+  const infoElement = cocktailElement.nextElementSibling;
+  if (infoElement && infoElement.className === "cocktail-info") {
+    // Eliminar el infoElement
+    infoElement.parentNode.removeChild(infoElement);
   }
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-  const api = new CoctelAPI();
-  const coctels = await api.fetchCoctels();
-  const coctelCards = document.getElementById('coctel-cards');
+function mostrarCocktails() {
+  const cocktailContainer = document.getElementById("cocktailContainer");
+  cocktailContainer.innerHTML = "";
 
-  coctels.forEach(coctel => {
-    const card = new CoctelCard(coctel);
-    coctelCards.appendChild(card.render());
-  });
-});
+  fetch(URL)
+    .then(response => response.json())
+    .then(data => {
+      const cocktails = data.drinks;
+      cocktails.forEach(cocktail => {
+        const name = cocktail.strDrink;
+        const image = cocktail.strDrinkThumb;
+
+        const cocktailElement = document.createElement("div");
+        cocktailElement.className = "cocktail";
+
+        const imgElement = document.createElement("img");
+        imgElement.className = "cocktail-img";
+        imgElement.src = image;
+        imgElement.alt = name;
+
+        const verMasButton = document.createElement("button");
+        verMasButton.textContent = "Ver más";
+        verMasButton.className = "ver-mas-button";
+        verMasButton.addEventListener("click", () => {
+          mostrarInformacion(cocktailElement, cocktail);
+          verMasButton.style.display = "none";
+          verMenosButton.style.display = "block";
+        });
+
+        const verMenosButton = document.createElement("button");
+        verMenosButton.textContent = "Ver menos";
+        verMenosButton.className = "ver-menos-button";
+        verMenosButton.style.display = "none";
+        verMenosButton.addEventListener("click", () => {
+          ocultarInformacion(cocktailElement);
+          verMenosButton.style.display = "none";
+          verMasButton.style.display = "block";
+        });
+
+        cocktailElement.appendChild(imgElement);
+        cocktailElement.appendChild(verMasButton);
+        cocktailElement.appendChild(verMenosButton);
+
+        cocktailContainer.appendChild(cocktailElement);
+      });
+    })
+    .catch(error => console.log(error));
+}
+
+
+
+function getIngredients(cocktail) {
+  // Función getIngredients existente en el código anterior
+  // Retorna los ingredientes formateados como una cadena de texto
+}
+
+mostrarCocktails();
+
+
+
+
+
