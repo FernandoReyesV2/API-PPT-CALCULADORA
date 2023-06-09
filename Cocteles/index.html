@@ -1,16 +1,27 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cocteles</title>
   <link rel="stylesheet" href="css/style.css">
+  <title>The Cocktail DB</title>
 </head>
-<body>
-  <h1>Cocteles</h1>
 
-  <div class="coctel-cards" id="coctel-cards"></div>
+<body>
+  <header>
+    <nav class="nav">
+      <ul class="nav-list">
+        <li><button class="btn-header" onclick="mostrarCocktails()">Mostrar Cocktails</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div id="cocktailContainer" class="cocktail-todos"></div>
+  </main>
 
   <script src="js/main.js"></script>
 </body>
+
 </html>
