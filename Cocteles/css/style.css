@@ -1,0 +1,41 @@
+.coctel-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.coctel-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  padding: 20px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.coctel-card img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.coctel-card h2 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.coctel-card p {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+.coctel-card button {
+  margin-top: auto;
+}
+

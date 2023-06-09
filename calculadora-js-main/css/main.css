@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #141414;
+    display: grid;
+    place-items: center;
+}
+
+.calculadora {
+    background-color: #C0C5C1;
+    color: white;
+    width: 350px;
+    max-width: 100%;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .5rem;
+}
+
+.pantalla {
+    grid-column: 1 / -1;
+    background-color: #7D8491;
+    padding: 1.5rem;
+    font-size: 2rem;
+    text-align: right;
+    border-radius: .5rem;
+    margin-bottom: 1rem;
+    font-family: monospace;
+    font-weight: 600;
+}
+
+.btn {
+    background-color: #7D8491;
+    color: white;
+    border: 0;
+    padding: 1.5rem .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: .5rem;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.PiePagina {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 20px;
+}
+
+#suma,#resta,#multiplicacion,#division,#exponente,#division_entera,#mod,#sqr,#factorial,#divisores{
+    background-color: #6A6879;
+}
+#suma:hover{
+    background-color: #3F334D;
+}
+#resta:hover{
+    background-color: #3F334D;
+}
+
+#multiplicacion:hover{
+    background-color: #3F334D;
+}
+#division:hover{
+    background-color: #3F334D;
+}
+
+#exponente:hover{
+    background-color: #3F334D;
+}
+#division_entera:hover{
+    background-color: #3F334D;
+}
+#mod:hover{
+    background-color: #3F334D;
+}
+#sqr:hover{
+    background-color: #3F334D;
+}
+#factorial:hover{
+    background-color: #3F334D;
+}
+#divisores:hover{
+    background-color: #3F334D;
+}
+
+.btn:hover {
+    background-color: #3F334D;
+}
+
+#c{
+    background-color: #493F50;
+}
+#c:hover{
+    background-color: #3F334D;
+}
+#igual {
+    background-color: #6A6879;
+}
+#borrar{
+    background-color: #493F50;
+}
+
+#borrar:hover{
+    background-color: #3F334D;
+}
+
+#igual:hover {
+    background-color: #3F334D;
+}
